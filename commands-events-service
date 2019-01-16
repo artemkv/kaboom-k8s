@@ -1,0 +1,28 @@
+// Creating pod - don't do that, use replica sets!!!
+kubectl create -f .\events-service-pod.yaml
+kubectl get pods --output=wide
+kubectl delete pod kaboom-events-service
+
+// Create replica set
+kubectl create -f .\events-service-rs.yaml
+kubectl get replicasets
+kubectl apply -f .\events-service-rs.yaml
+kubectl delete replicasets kaboom-events-rs
+
+// Create deployment
+kubectl create -f .\events-service-deployment.yaml
+kubectl get deploy
+kubectl apply -f .\events-service-deployment.yaml --record
+kubectl rollout status deployment kaboom-events-deployment
+kubectl rollout history deployment kaboom-events-deployment
+kubectl rollout undo deployment kaboom-events-deployment --to-revision=1
+kubectl delete deployment kaboom-events-deployment
+
+// Create service to enable access to the replica set
+kubectl create -f .\events-service-service.yaml
+kubectl get services
+kubectl describe services kaboom-events-service
+kubectl delete service kaboom-events-service
+
+// Gives you public ip address of the node in minikube
+kubectl cluster-info
