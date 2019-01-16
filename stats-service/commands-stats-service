@@ -6,3 +6,12 @@ kubectl rollout status deployment kaboom-stats-deployment
 kubectl rollout history deployment kaboom-stats-deployment
 kubectl rollout undo deployment kaboom-stats-deployment --to-revision=1
 kubectl delete deployment kaboom-stats-deployment
+
+// Create service to enable access to the deployment
+kubectl create -f .\stats-service-service.yaml
+kubectl get services
+kubectl describe services kaboom-stats-service
+kubectl delete service kaboom-stats-service
+
+// Gives you public ip address of the node in minikube
+kubectl cluster-info
