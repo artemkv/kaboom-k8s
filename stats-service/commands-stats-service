@@ -1,0 +1,8 @@
+// Create deployment
+kubectl create -f .\stats-service-deployment.yaml
+kubectl get deploy
+kubectl apply -f .\stats-service-deployment.yaml --record
+kubectl rollout status deployment kaboom-stats-deployment
+kubectl rollout history deployment kaboom-stats-deployment
+kubectl rollout undo deployment kaboom-stats-deployment --to-revision=1
+kubectl delete deployment kaboom-stats-deployment

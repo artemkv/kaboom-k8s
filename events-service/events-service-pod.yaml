@@ -3,12 +3,12 @@ kind: Pod
 metadata:
   name: kaboom-events-service
   labels:
-    version: v1.0.0.1
+    version: v1.0.0
     service: kaboom-events-service
 spec:
   containers:
   - name: kaboom-events-service
-    image: artemkv/kaboom-events-service:1.0.0 # latest?
+    image: artemkv/kaboom-events-service:latest
     env:
     - name: KAFKA_BROKER_LIST
       value: 192.168.60.51:9092

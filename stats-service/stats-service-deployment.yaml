@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kaboom-stats-deployment
+spec:
+  # below basically just a copy of a spec section from the replica set
+  replicas: 2
+  minReadySeconds: 10 # do not route requests until the service has run for 10''
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1   # one replica unavailable max
+      maxSurge: 1         # 1 extra replica available max
+  selector:
+    matchLabels:
+      service: kaboom-stats-service
+  template:
+    # below basically just a copy of a pod without a name
+    metadata:
+      labels:
+        version: v1.0.0
+        service: kaboom-stats-service
+    spec:
+      containers:
+      - name: kaboom-stats-service
+        image: artemkv/kaboom-stats-service:0.0.1-SNAPSHOT # latest?
+        env:
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          value: 192.168.60.51:9092
+        - name: MONGODB_CONNECTION_STRING
+          value: mongodb://192.168.60.50:27017

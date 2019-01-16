@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kaboom-events-deployment
+spec:
+  # below basically just a copy of a spec section from the replica set
+  replicas: 2
+  minReadySeconds: 10 # do not route requests until the service has run for 10''
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1   # one replica unavailable max
+      maxSurge: 1         # 1 extra replica available max
+  selector:
+    matchLabels:
+      service: kaboom-events-service
+  template:
+    # below basically just a copy of a pod without a name
+    metadata:
+      labels:
+        version: v1.0.0
+        service: kaboom-events-service
+    spec:
+      containers:
+      - name: kaboom-events-service
+        image: artemkv/kaboom-events-service:latest
+        env:
+        - name: KAFKA_BROKER_LIST
+          value: 192.168.60.51:9092
+        ports:
+        - containerPort: 8600

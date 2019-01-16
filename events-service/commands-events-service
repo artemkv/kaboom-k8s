@@ -18,7 +18,7 @@ kubectl rollout history deployment kaboom-events-deployment
 kubectl rollout undo deployment kaboom-events-deployment --to-revision=1
 kubectl delete deployment kaboom-events-deployment
 
-// Create service to enable access to the replica set
+// Create service to enable access to the deployment
 kubectl create -f .\events-service-service.yaml
 kubectl get services
 kubectl describe services kaboom-events-service

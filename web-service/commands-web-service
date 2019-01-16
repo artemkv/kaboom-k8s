@@ -1,0 +1,17 @@
+// Create deployment
+kubectl create -f .\web-service-deployment.yaml
+kubectl get deploy
+kubectl apply -f .\web-service-deployment.yaml --record
+kubectl rollout status deployment kaboom-web-deployment
+kubectl rollout history deployment kaboom-web-deployment
+kubectl rollout undo deployment kaboom-web-deployment --to-revision=1
+kubectl delete deployment kaboom-web-deployment
+
+// Create service to enable access to the deployment
+kubectl create -f .\web-service-service.yaml
+kubectl get services
+kubectl describe services kaboom-web-service
+kubectl delete service kaboom-web-service
+
+// Gives you public ip address of the node in minikube
+kubectl cluster-info

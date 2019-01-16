@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kaboom-events-deployment
+  name: kaboom-web-deployment
 spec:
   # below basically just a copy of a spec section from the replica set
   replicas: 2
@@ -13,19 +13,23 @@ spec:
       maxSurge: 1         # 1 extra replica available max
   selector:
     matchLabels:
-      service: kaboom-events-service
+      service: kaboom-web-service
   template:
     # below basically just a copy of a pod without a name
     metadata:
       labels:
-        version: v1.0.0.1
-        service: kaboom-events-service
+        version: v1.0.0
+        service: kaboom-web-service
     spec:
       containers:
-      - name: kaboom-events-service
-        image: artemkv/kaboom-events-service:1.0.0 # latest?
+      - name: kaboom-web-service
+        image: artemkv/kaboom-web-service:latest
         env:
-        - name: KAFKA_BROKER_LIST
-          value: 192.168.60.51:9092
+        - name: SESSION_SECRET_KEY
+          value: secret
+        - name: MONGODB_CONNECTION_STRING
+          value: mongodb://192.168.60.50:27017
+        - name: DB_NAME
+          value: kaboom
         ports:
         - containerPort: 8600

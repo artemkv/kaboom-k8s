@@ -1,0 +1,17 @@
+# This is not needed for now, I don't access stats service externally or internally
+# Maybe later I'll need it for healthchecks
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kaboom-stats-service
+  labels:
+    service: kaboom-stats
+spec:
+  selector:
+    service: kaboom-stats-service
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 8700
+    nodePort: 30700
