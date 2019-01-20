@@ -1,14 +1,3 @@
-// Creating pod - don't do that, use replica sets!!!
-kubectl create -f .\events-service-pod.yaml
-kubectl get pods --output=wide
-kubectl delete pod kaboom-events-service
-
-// Create replica set
-kubectl create -f .\events-service-rs.yaml
-kubectl get replicasets
-kubectl apply -f .\events-service-rs.yaml
-kubectl delete replicasets kaboom-events-rs
-
 // Create deployment
 kubectl create -f .\events-service-deployment.yaml
 kubectl get deploy

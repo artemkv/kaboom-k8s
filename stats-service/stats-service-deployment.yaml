@@ -26,8 +26,10 @@ spec:
         image: artemkv/kaboom-stats-service:latest
         env:
         - name: KAFKA_BOOTSTRAP_SERVERS
-          value: 192.168.60.51:9092
+          value: 192.168.60.50:27017,192.168.60.51:27017
         - name: MONGO_CONNECTION_STRING
-          value: mongodb://192.168.60.50:27017
+          value: mongodb://192.168.60.50:27017,192.168.60.51:27017
+        - name: MONGO_DBNAME
+          value: kaboom
         ports:
         - containerPort: 8500
