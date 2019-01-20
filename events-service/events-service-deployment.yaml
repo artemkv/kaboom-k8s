@@ -26,6 +26,6 @@ spec:
         image: artemkv/kaboom-events-service:latest
         env:
         - name: KAFKA_BROKER_LIST
-          value: 192.168.60.50:27017,192.168.60.51:27017
+          value: 192.168.60.50:9092,192.168.60.51:9092
         ports:
         - containerPort: 8600

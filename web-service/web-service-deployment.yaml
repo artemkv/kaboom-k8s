@@ -31,5 +31,7 @@ spec:
           value: mongodb://192.168.60.50:27017,192.168.60.51:27017
         - name: DB_NAME
           value: kaboom
+        - name: REPLICA_SET_NAME
+          value: rs0
         ports:
-        - containerPort: 8600
+        - containerPort: 8700
